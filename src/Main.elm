@@ -14,7 +14,6 @@ import Profile as Profile
 type Msg
     = FetchUser App.FetchCap
     | RequestReceived App.Msg
-    | Noop App.Msg
 
 
 
@@ -28,10 +27,7 @@ update msg model =
             App.fetch RequestReceived cap
 
         RequestReceived msg_ ->
-            App.process Noop msg_
-
-        Noop _ ->
-            ( model, Cmd.none )
+            ( App.process msg_, Cmd.none )
 
 
 httpErrorString : Http.Error -> String -> String

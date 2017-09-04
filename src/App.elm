@@ -107,15 +107,11 @@ fetch f _ =
 
 {-| Processes the result of a Profile fetch, transitioning to the appropriate state.
 -}
-process : (Msg -> msg) -> Msg -> ( Model, Cmd msg )
-process _ (RequestReceived result) =
-    let
-        model =
-            case result of
-                Ok user ->
-                    FetchSuccess FetchSuccessState user
+process : Msg -> Model
+process (RequestReceived result) =
+    case result of
+        Ok user ->
+            FetchSuccess FetchSuccessState user
 
-                Err err ->
-                    FetchError FetchErrorState err FetchCap
-    in
-        ( model, Cmd.none )
+        Err err ->
+            FetchError FetchErrorState err FetchCap
